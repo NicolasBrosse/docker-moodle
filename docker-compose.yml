@@ -1,0 +1,58 @@
+version: '3'
+services:
+
+  db:
+    image: mariadb
+    ports:
+      - 3306:3306
+    restart: always
+    volumes:
+      - db_data:/var/lib/mysql
+    command:
+      - "--character-set-server=utf8mb4"
+      - "--collation-server=utf8mb4_unicode_ci"
+    env_file: .env
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_ALLOW_EMPTY_PASSWORD=0
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - TZ=Europe/Paris
+
+  redis:
+    image: redis
+    restart: always
+    volumes:
+      - redis_data:/data
+
+  app:
+    build: ./moodle
+    working_dir: /var/www/html
+    env_file: .env
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - ./moodle/moodle_data:/var/moodledata
+      - content:/var/www/html
+    ports:
+      - 9000:9000
+
+  nginx:
+    build: ./nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx/moodle.conf:/etc/nginx/nginx.conf:ro
+      - content:/var/www/html:ro
+    restart: always
+    depends_on:
+      - db
+      - app
+
+volumes:
+  db_data:
+    driver: local
+  redis_data:
+  content:
