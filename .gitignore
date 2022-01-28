@@ -32,3 +32,4 @@ app/moodle_data
 db_data
 redis_data
 data/*
+tmp

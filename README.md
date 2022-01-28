@@ -1,5 +1,11 @@
 ## Building
 
+### Setting environment variables
+Copy `.env-sample` to `.env` and set the variables
+
+### Adding Moodle
+Copy moodle source directory into `app/src` so that `app/src/index.php` exists
+
 ### Running the application
 `docker-compose up -d`
 
