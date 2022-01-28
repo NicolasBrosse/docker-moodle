@@ -1,6 +1,11 @@
 #!/bin/sh
 
-read -p "Moodle verison (310/311/...) ? " version
+# arguments validation
+if [ ! $1 ]; then
+    read -p "Moodle verison (310/311/...) ? " version
+else
+    version=$1
+fi
 
 # cleaning up
 if [ -f "$PWD/tmp" ]; then
