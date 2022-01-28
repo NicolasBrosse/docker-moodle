@@ -7,7 +7,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Run the setup script
         run: |
-          chmod +x ./setup.sh
+          chmod +x ./setup.sh 311
           ./setup.sh
       - name: Build the stack
         run: docker-compose up -d

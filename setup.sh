@@ -26,7 +26,6 @@ if [ -f "$PWD/tmp/moodle.tar.gz" ]; then
     cd $PWD/tmp
     tar -zxvf moodle.tar.gz
     rm moodle.tar.gz
-    ls $PWD/../app/src
     mv $PWD/moodle/* $PWD/../app/src
     rm -rf $PWD/moodle
 fi
