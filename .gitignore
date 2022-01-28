@@ -27,8 +27,8 @@ Vagrantfile
 .DS_Store
 
 # Custom
-moodle/src/moodle
+app/src/moodle
+app/moodle_data
 db_data
 redis_data
 data/*
-moodle/moodle_data
