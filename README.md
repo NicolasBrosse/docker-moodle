@@ -4,7 +4,13 @@
 Copy `.env-sample` to `.env` and set the variables
 
 ### Adding Moodle
-Copy moodle source directory into `app/src` so that `app/src/index.php` exists
+Run the `setup.sh` script
+
+or :
+
+- copy moodle source directory into `app/src` so that `app/src/index.php` exists
+- create `app/moodle_data` directory
+
 
 ### Running the application
 `docker-compose up -d`
