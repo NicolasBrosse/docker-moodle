@@ -8,6 +8,7 @@ services:
     restart: always
     volumes:
       - db_data:/var/lib/mysql
+      - ./db/my.cnf:/etc/mysql/my.cnf
     command:
       - "--character-set-server=utf8mb4"
       - "--collation-server=utf8mb4_unicode_ci"
@@ -27,14 +28,14 @@ services:
       - redis_data:/data
 
   app:
-    build: ./moodle
+    build: ./app
     working_dir: /var/www/html
     env_file: .env
     depends_on:
       - db
       - redis
     volumes:
-      - ./moodle/moodle_data:/var/moodledata
+      - ./app/moodle_data:/var/moodledata
       - content:/var/www/html
     ports:
       - 9000:9000

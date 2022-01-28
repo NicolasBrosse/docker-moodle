@@ -25,10 +25,6 @@ $CFG->directorypermissions = 0777;
 $CFG->debug = (E_ALL | E_STRICT);   // === DEBUG_DEVELOPER - NOT FOR PRODUCTION SERVERS!
 $CFG->debugdisplay = 1;  
 
-var_dump(getenv('MYSQL_DATABASE'));
-var_dump(getenv('MYSQL_USER'));
-var_dump(getenv('MYSQL_PASSWORD'));
-
 require_once(__DIR__ . '/lib/setup.php');
 
 // There is no php closing tag in this file,
