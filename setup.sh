@@ -15,6 +15,7 @@ fi
 ROOTDIR=$PWD
 
 mkdir -p $PWD/app/moodle_data >/dev/null 2>&1
+mkdir -p $PWD/app/src >/dev/null 2>&1
 mkdir -p $PWD/tmp >/dev/null 2>&1
 
 if [ ! -f "tmp/moodle.tar.gz" ]; then
