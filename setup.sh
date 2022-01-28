@@ -12,6 +12,8 @@ if [ -f "$PWD/tmp" ]; then
     rm -rf $PWD/tmp
 fi
 
+ROOTDIR=$PWD
+
 mkdir -p $PWD/app/moodle_data >/dev/null 2>&1
 mkdir -p $PWD/tmp >/dev/null 2>&1
 
@@ -27,4 +29,9 @@ if [ -f "$PWD/tmp/moodle.tar.gz" ]; then
     ls $PWD/../app/src
     mv $PWD/moodle/* $PWD/../app/src
     rm -rf $PWD/moodle
+fi
+
+if [ ! -f "$PWD/.env" ]; then
+    cd $ROOTDIR
+    cp $PWD/.env-sample $PWD/.env
 fi
