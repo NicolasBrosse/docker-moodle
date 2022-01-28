@@ -37,6 +37,7 @@ services:
     volumes:
       - ./app/moodle_data:/var/moodledata
       - content:/var/www/html
+      - ./app/moodle-config.php:/var/www/html/config.php
     ports:
       - 9000:9000
 
