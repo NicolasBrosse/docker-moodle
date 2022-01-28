@@ -12,10 +12,6 @@ docker-compose build app --no-cache
 
 ## Moodle
 
-### Adjusting PHP settings
-
-Change the settings of *moodle/php.ini* and rebuild the app by running `docker-compose build app`
-
 ### Moodle caching
 
 In **/cache/admin.php** admin panel, add a new Redis store :
