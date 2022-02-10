@@ -40,7 +40,7 @@ COPY ./moodle_data /var/moodledata
 RUN chown -R www-data:www-data /var/moodledata
 
 COPY ./src /var/www/html
-COPY ./moodle-config.php /var/www/html/config.php
+COPY ./config.php /var/www/html/config.php
 RUN chown -R www-data:www-data /var/www/html/*
 
 RUN echo "*/15 * * * * /usr/bin/php /var/www/html/admin/cli/cron.php >/dev/null" >> /etc/crontab

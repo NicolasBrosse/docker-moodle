@@ -12,7 +12,7 @@ $CFG->dbuser    = getenv('MYSQL_USER');
 $CFG->dbpass    = getenv('MYSQL_PASSWORD');
 $CFG->prefix    = 'mdl_';
 $CFG->dboptions = array (
-  'dbcollation' => 'utf8mb4_general_ci',
+  'dbcollation' => 'utf8mb4_unicode_ci',
 );
 
 $CFG->wwwroot   = 'http://localhost';
