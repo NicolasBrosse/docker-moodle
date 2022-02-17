@@ -7,7 +7,7 @@
 # 
 
 DAYS=1
-BACKUPDIR=~/OneDrive/Documents/docker/docker-moodle/backups
+BACKUPDIR=./backups
 TIMESTAMP=$(date)
 
 # backup all mysql/mariadb containers
