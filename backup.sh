@@ -26,7 +26,7 @@ for i in $CONTAINER; do
     MYSQL_PWD=$(docker exec $i env | grep MYSQL_ROOT_PASSWORD |cut -d"=" -f2)
 
     docker exec -e MYSQL_DATABASE=$MYSQL_DATABASE -e MYSQL_PWD=$MYSQL_PWD \
-        $i mysqldump -u root $MYSQL_DATABASE \
+        $i mysqldump -u root --skip-comments $MYSQL_DATABASE \
          | gzip > $BACKUPDIR/sql/$i-$MYSQL_DATABASE-$(date +"%Y%m%d%H%M").sql.gz
 
     OLD_BACKUPS=$(ls -1 $BACKUPDIR/$i*.gz |wc -l)
@@ -38,3 +38,5 @@ for i in $CONTAINER; do
 done
 
 echo "$TIMESTAMP Backup for Databases completed"
+
+

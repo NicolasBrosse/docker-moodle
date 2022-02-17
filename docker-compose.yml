@@ -9,12 +9,7 @@ services:
     volumes:
       - db_data:/var/lib/mysql
       - ./db/my.cnf:/etc/mysql/my.cnf
-    backup:
-      image: jareware/docker-volume-backup
-      volumes:
-        - db_data:/backup/db_data:ro
-        - ./backups:/archive
-
+      - ./backups/sql:/opt/backups
     command:
       - "--character-set-server=utf8mb4"
       - "--collation-server=utf8mb4_unicode_ci"

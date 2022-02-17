@@ -33,3 +33,5 @@ db_data
 redis_data
 data/*
 tmp
+backups
+data-teste
