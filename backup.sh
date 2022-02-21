@@ -27,16 +27,15 @@ for i in $CONTAINER; do
 
     docker exec -e MYSQL_DATABASE=$MYSQL_DATABASE -e MYSQL_PWD=$MYSQL_PWD \
         $i mysqldump -u root --skip-comments $MYSQL_DATABASE \
-         | gzip > $BACKUPDIR/sql/$i-$MYSQL_DATABASE-$(date +"%Y%m%d%H%M").sql.gz
+         | gzip > $BACKUPDIR/sql/$i-$MYSQL_DATABASE-$(date +"%Y%m%d%H%M").sql.gz 
 
-    OLD_BACKUPS=$(ls -1 $BACKUPDIR/$i*.gz |wc -l)
+    OLD_BACKUPS=$(ls -1 $BACKUPDIR/sql/$i*.gz |wc -l)
     if [ $OLD_BACKUPS -gt $DAYS ]; then
-    find $BACKUPDIR -name "$i*.gz" -daystart -mtime +$DAYS -delete
+        find $BACKUPDIR -name "$i*.gz" -daystart -mtime +$DAYS -delete #<logs.txt
     fi
-    #docker exec  --volumes-from $i -v $BACKUPDIR/volumes:/backup $i bash -c "cd /var/moodledata && tar cvf /backup/moodledata.tar ."
+    tar -czf $BACKUPDIR/volumes/moodle_data$(date +"%Y%m%d%H%M").tar.gz ./app/moodle_data
+    
     
 done
 
 echo "$TIMESTAMP Backup for Databases completed"
-
-

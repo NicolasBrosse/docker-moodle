@@ -35,3 +35,4 @@ data/*
 tmp
 backups
 data-teste
+log.*
