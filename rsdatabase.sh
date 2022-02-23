@@ -1,3 +1,8 @@
+BACKUPDIRV=./backups/volumes
+BACKUPDIRapp=./backups/volumes/app
+BACKUPDIRSQL=./backups/sql
+
+
 echo RESTAURATION Database
 
 echo "voule-vous unzip un fichier .gz?"
@@ -5,13 +10,13 @@ echo "voule-vous unzip un fichier .gz?"
 select yn in "Yes" "No"; do
     case $yn in
         Yes ) echo ETAPE 1 unzip le fichier .gz:
-        for filepath in ./backups/volumes/*
+        for filepath in $BACKUPDIRV/*
         do
             echo $(basename $filepath)
         done
         echo indiquez la date du fichier à unzip '(/Y/m/d/H/M)' :
         read -p date: datevar
-        echo gunzip  backups/sql/docker-moodle-db-1-moodle-$datevar.sql.gz
+        echo gunzip  $BACKUPDIRSQL/docker-moodle-db-1-moodle-$datevar.sql.gz
         break ;;
         No ) break ;;
     esac
@@ -22,7 +27,7 @@ echo "voule-vous restaurer la database via le fichier .sql?"
 select yn in "Yes" "No"; do
     case $yn in
         Yes ) echo ETAPE 2 restaurer la database via le fichier .sql
-        for filepath in ./backups/volumes/*
+        for filepath in $BACKUPDIRV/*
         do
             echo $(basename $filepath)
         done
@@ -41,14 +46,14 @@ echo "voule-vous untar le fichier tar.gz?"
 select yn in "Yes" "No"; do
     case $yn in
         Yes ) echo ETAPE 1 untar le fichier tar.gz:
-        for filepath in ./backups/volumes/*
+        for filepath in $BACKUPDIRV/*
         do
             echo $(basename $filepath)
         done
         echo indiquez la date de la date du fichier à untar '(/Y/m/d/H/M)' :
         read -p date: datevar
         echo $PWD
-        tar -xzf  backups/volumes/moodle_data-$datevar.tar.gz -C ./backups/volumes
+        tar -xzf  $BACKUPDIRV/moodle_data-$datevar.tar.gz -C $BACKUPDIRV
         break ;;
         No ) break ;;
     esac
@@ -65,8 +70,8 @@ select yn in "Yes" "No"; do
                 echo error 
                 exit 0
             else 
-                mv  backups/volumes/app/moodle_data app;
-                rm -rf backups/volumes/app; break ;
+                mv  $BACKUPDIRapp/moodle_data app;
+                rm -rf $BACKUPDIRapp; break ;
             fi
             ;;
         No ) break ;;

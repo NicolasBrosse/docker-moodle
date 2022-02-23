@@ -34,7 +34,11 @@ for i in $CONTAINER; do
         find $BACKUPDIR -name "$i*.gz" -daystart -mtime +$DAYS -delete #<logs.txt
     fi
     tar -czf $BACKUPDIR/volumes/moodle_data-$(date +"%Y%m%d%H%M").tar.gz ./app/moodle_data
-    
+
+    OLD_BACKUPS=$(ls -1 $BACKUPDIR/volumes/*.gz |wc -l)
+    if [ $OLD_BACKUPS -gt $DAYS ]; then
+        find $BACKUPDIR -name "*.gz" -daystart -mtime +$DAYS -delete #<logs.txt
+    fi
     
 done
 
