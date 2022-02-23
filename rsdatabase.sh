@@ -3,18 +3,18 @@ BACKUPDIRapp=./backups/volumes/app
 BACKUPDIRSQL=./backups/sql
 
 
-echo RESTAURATION Database
+echo -e "\033[35mRESTAURATION Database\033[0m"
 
-echo "voule-vous unzip un fichier .gz?"
+echo -e "\033[36mvoule-vous unzip un fichier .gz?\033[0m"
 
 select yn in "Yes" "No"; do
     case $yn in
-        Yes ) echo ETAPE 1 unzip le fichier .gz:
+        Yes ) echo -e "\033[36mETAPE 1 unzip le fichier .gz:\033[0m"
         for filepath in $BACKUPDIRV/*
         do
             echo $(basename $filepath)
         done
-        echo indiquez la date du fichier à unzip '(/Y/m/d/H/M)' :
+        echo -e "\033[36mindiquez la date du fichier à unzip '(/Y/m/d/H/M)' :\033[0m"
         read -p date: datevar
         echo gunzip  $BACKUPDIRSQL/docker-moodle-db-1-moodle-$datevar.sql.gz
         break ;;
@@ -22,16 +22,16 @@ select yn in "Yes" "No"; do
     esac
 done
 
-echo "voule-vous restaurer la database via le fichier .sql?"
+echo -e "\033[36mvoule-vous restaurer la database via le fichier .sql?\033[0m"
 
 select yn in "Yes" "No"; do
     case $yn in
-        Yes ) echo ETAPE 2 restaurer la database via le fichier .sql
+        Yes ) echo -e "\033[36mETAPE 2 restaurer la database via le fichier .sql\033[0m"
         for filepath in $BACKUPDIRV/*
         do
             echo $(basename $filepath)
         done
-        echo indiquez la date de la database à restaurer '(/Y/m/d/H/M)' :
+        echo -e "\033[36mindiquez la date de la database à restaurer '(/Y/m/d/H/M)' :\033[0m"
         read -p date: datevar
         echo docker exec -e MYSQL_DATABASE=moodle -e MYSQL_PWD=root docker-moodle-db-1 bash -c 'mysql -u root moodle < /opt/backups/docker-moodle-db-1-moodle-'$datevar'.sql'
         break ;;
@@ -39,35 +39,34 @@ select yn in "Yes" "No"; do
     esac
 done 
 
-echo RESTAURATION volume moodle_data
+echo -e "\033[35mRESTAURATION volume moodle_data\033[0m"
 
-echo "voule-vous untar le fichier tar.gz?"
+echo -e "\033[36mvoule-vous untar le fichier tar.gz?\033[0m"
 
 select yn in "Yes" "No"; do
     case $yn in
-        Yes ) echo ETAPE 1 untar le fichier tar.gz:
+        Yes ) echo -e "\033[36mETAPE 1 untar le fichier tar.gz:\033[0m"
         for filepath in $BACKUPDIRV/*
         do
             echo $(basename $filepath)
         done
-        echo indiquez la date de la date du fichier à untar '(/Y/m/d/H/M)' :
+        echo -e "\033[36mindiquez la date de la date du fichier à untar '(/Y/m/d/H/M)' :\033[0m"
         read -p date: datevar
-        echo $PWD
         tar -xzf  $BACKUPDIRV/moodle_data-$datevar.tar.gz -C $BACKUPDIRV
         break ;;
         No ) break ;;
     esac
 done 
 
-echo ETAPE 2 restauration de moodle_data
+echo -e "\033[35mETAPE 2 restauration de moodle_data\033[0m"
 
-echo "voule-vous restaurer moodle_data?"
+echo -e "\033[36mvoule-vous restaurer moodle_data?\033[0m"
 
 select yn in "Yes" "No"; do
     case $yn in
         Yes ) 
             if  [[ -d "./app/moodle_data" ]]; then 
-                echo error 
+                echo -e "\033[31merror moodle_data existe déjà\033[0m"
                 exit 0
             else 
                 mv  $BACKUPDIRapp/moodle_data app;
