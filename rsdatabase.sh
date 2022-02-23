@@ -37,7 +37,7 @@ select yn in "Yes" "No"; do
         break ;;
         No ) break ;;
     esac
-done 
+done
 
 echo -e "\033[35mRESTAURATION volume moodle_data\033[0m"
 
@@ -57,8 +57,6 @@ select yn in "Yes" "No"; do
         No ) break ;;
     esac
 done 
-
-echo -e "\033[35mETAPE 2 restauration de moodle_data\033[0m"
 
 echo -e "\033[36mvoule-vous restaurer moodle_data?\033[0m"
 
