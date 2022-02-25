@@ -16,6 +16,7 @@ if [ ! -f "tmp/moodle.tar.gz" ]; then
 fi
 
 if [ -f "$PWD/tmp/moodle.tar.gz" ]; then
+    mkdir $PWD/app/src
     cd $PWD/tmp
     tar -zxvf moodle.tar.gz
     rm moodle.tar.gz
