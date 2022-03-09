@@ -1,7 +1,7 @@
-BACKUPDIRV=./backups/volumes
-BACKUPDIRapp=./backups/volumes/app
-BACKUPDIRSQL=./backups/sql
-LOGS=./backups/logs
+BACKUPDIRV=../backups/volumes
+BACKUPDIRapp=../backups/volumes/app
+BACKUPDIRSQL=../backups/sql
+LOGS=../backups/logs
 
 
 
@@ -12,7 +12,7 @@ echo -e "\033[36mvoule-vous unzip un fichier .gz?\033[0m"
 select yn in "Yes" "No"; do
     case $yn in
         Yes ) echo -e "\033[36mETAPE 1 unzip le fichier .gz:\033[0m"
-        for filepath in $BACKUPDIRV/*
+        for filepath in $BACKUPDIRSQL/*
         do
             echo $(basename $filepath)
         done
