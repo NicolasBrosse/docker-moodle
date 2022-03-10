@@ -1,7 +1,7 @@
-BACKUPDIRV=../backups/volumes
-BACKUPDIRapp=../backups/volumes/app
-BACKUPDIRSQL=../backups/sql
-LOGS=../backups/logs
+BACKUPDIRV=./backups/volumes
+BACKUPDIRapp=./backups/volumes/app
+BACKUPDIRSQL=./backups/sql
+LOGS=./backups/logs
 
 
 
@@ -17,8 +17,9 @@ select yn in "Yes" "No"; do
             echo $(basename $filepath)
         done
         echo -e "\033[36mindiquez la date du fichier à unzip '(/Y/m/d/H/M)' :\033[0m"
-        sudo read -p date: datevar
-        sudo gunzip  $BACKUPDIRSQL/docker-moodle-db-1-moodle-$datevar.sql.gz
+        read -p date: datevar
+        $PWD
+        gzip -d $BACKUPDIRSQL/docker-moodle-db-1-moodle-$datevar.sql.gz
         break ;;
         No ) break ;;
     esac
@@ -34,8 +35,8 @@ select yn in "Yes" "No"; do
             echo $(basename $filepath)
         done
         echo -e "\033[36mindiquez la date de la database à restaurer '(/Y/m/d/H/M)' :\033[0m"
-        sudo read -p date: datevar
-        sudo docker exec -e MYSQL_DATABASE=moodle -e MYSQL_PWD=root docker-moodle-db-1 bash -c 'mysql -u root moodle < /opt/backups/docker-moodle-db-1-moodle-'$datevar'.sql'
+        read -p date: datevar
+        docker exec -e MYSQL_DATABASE=moodle -e MYSQL_PWD=root docker-moodle-db-1 bash -c 'mysql -u root moodle < /opt/backups/docker-moodle-db-1-moodle-'$datevar'.sql'
         break ;;
         No ) break ;;
     esac
@@ -53,8 +54,9 @@ select yn in "Yes" "No"; do
             echo $(basename $filepath)
         done
         echo -e "\033[36mindiquez la date de la date du fichier à untar '(/Y/m/d/H/M)' :\033[0m"
-        sudo read -p date: datevar
-        sudo tar -xzf  $BACKUPDIRV/moodle_data-$datevar.tar.gz -C $BACKUPDIRV
+        read -p date: datevar
+        $PWD
+        tar -xzf $BACKUPDIRV/moodle_data-$datevar.tar.gz -C $BACKUPDIRV
         break ;;
         No ) break ;;
     esac

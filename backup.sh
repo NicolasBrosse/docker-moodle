@@ -8,9 +8,9 @@
 
 
 DAYS=1
-BACKUPDIR=../backups
-BACKUPDIRV=../backups/volumes
-BACKUPDIRSQL=../backups/sql
+BACKUPDIR=./backups
+BACKUPDIRV=./backups/volumes
+BACKUPDIRSQL=./backups/sql
 LOGS=../backups/logs/logs.out
 TIMESTAMP=$(date)
 
@@ -26,23 +26,23 @@ CONTAINER=$(docker ps --format '{{.Names}}:{{.Image}}' | grep 'mysql\|mariadb' |
 echo $CONTAINER
 
 if [ ! -d $BACKUPDIR ]; then
-    sudo mkdir -p $BACKUPDIRSQL
-    sudo mkdir -p $BACKUPDIRV
+    mkdir -p $BACKUPDIRSQL
+    mkdir -p $BACKUPDIRV
 fi
 
 for i in $CONTAINER; do
-    MYSQL_DATABASE=$(sudo docker exec $i env | grep MYSQL_DATABASE |cut -d"=" -f2)
-    MYSQL_PWD=$(sudo docker exec $i env | grep MYSQL_ROOT_PASSWORD |cut -d"=" -f2)
+    MYSQL_DATABASE=$(docker exec $i env | grep MYSQL_DATABASE |cut -d"=" -f2)
+    MYSQL_PWD=$(docker exec $i env | grep MYSQL_ROOT_PASSWORD |cut -d"=" -f2)
 
-    sudo docker exec -e MYSQL_DATABASE=$MYSQL_DATABASE -e MYSQL_PWD=$MYSQL_PWD \
+    docker exec -e MYSQL_DATABASE=$MYSQL_DATABASE -e MYSQL_PWD=$MYSQL_PWD \
         $i mysqldump -u root --skip-comments $MYSQL_DATABASE \
          | gzip > $BACKUPDIRSQL/$i-$MYSQL_DATABASE-$(date +"%Y%m%d%H%M").sql.gz >$LOGS
 
     OLD_BACKUPS=$(ls -1 $BACKUPDIRSQL/$i*.gz |wc -l)
     if [ $OLD_BACKUPS -gt $DAYS ]; then
-    sudo find $BACKUPDIR -name "$i*.gz" -daystart -mtime +$DAYS -delete >$LOGS 
+    find $BACKUPDIR -name "$i*.gz" -daystart -mtime +$DAYS -delete >$LOGS 
     fi >$LOGS 
-    sudo tar -czf $BACKUPDIRV/moodle_data-$(date +"%Y%m%d%H%M").tar.gz ./app/moodle_data
+    tar -czf $BACKUPDIRV/moodle_data-$(date +"%Y%m%d%H%M").tar.gz ./app/moodle_data
 
     OLD_BACKUPS=$(ls -1 $BACKUPDIRV/*.gz |wc -l)
     if [ $OLD_BACKUPS -gt $DAYS ]; then
