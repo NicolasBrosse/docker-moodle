@@ -9,7 +9,7 @@ echo -e "\033[35mRESTAURATION Database\033[0m"
 
 echo -e "\033[36mvoule-vous unzip un fichier .gz?\033[0m"
 
-select yn in "Yes" "No"; do
+select yn in "Yes" "No" ; do
     case $yn in
         Yes ) echo -e "\033[36mETAPE 1 unzip le fichier .gz:\033[0m"
         for filepath in $BACKUPDIRSQL/*gz
@@ -26,7 +26,7 @@ done
 
 echo -e "\033[36mvoule-vous restaurer la database via le fichier .sql?\033[0m"
 
-select yn in "Yes" "No"; do
+select yn in "Yes" "No" ; do
     case $yn in
         Yes ) echo -e "\033[36mETAPE 2 restaurer la database via le fichier .sql\033[0m"
         for filepath in $BACKUPDIRSQL/*sql
@@ -45,7 +45,7 @@ echo -e "\033[35mRESTAURATION volume moodle_data\033[0m"
 
 echo -e "\033[36mvoule-vous untar le fichier tar.gz?\033[0m"
 
-select yn in "Yes" "No"; do
+select yn in "Yes" "No" ; do
     case $yn in
         Yes ) echo -e "\033[36mETAPE 1 untar le fichier tar.gz:\033[0m"
         for filepath in $BACKUPDIRV/*
@@ -63,7 +63,7 @@ done
 
 echo -e "\033[36mvoule-vous restaurer moodle_data?\033[0m"
 
-select yn in "Yes" "No"; do
+select yn in "Yes" "No" ; do
     case $yn in
         Yes ) 
             if  [[ -d "./app/moodle_data" ]]; then 
