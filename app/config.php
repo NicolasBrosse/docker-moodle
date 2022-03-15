@@ -15,7 +15,7 @@ $CFG->dboptions = array (
   'dbcollation' => 'utf8mb4_unicode_ci',
 );
 
-$CFG->wwwroot   = 'http://localhost';
+$CFG->wwwroot   = 'http://'.getenv('DOMAIN_NAME');
 $CFG->dataroot  = '/var/moodledata';
 $CFG->directorypermissions = 0777;
 

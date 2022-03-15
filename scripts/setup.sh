@@ -24,3 +24,4 @@ if [ -f "$PWD/tmp/moodle.tar.gz" ]; then
     mv $PWD/moodle/* $PWD/../app/src
     rm -rf $PWD/moodle
 fi
+#fi
