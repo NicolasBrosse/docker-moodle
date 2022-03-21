@@ -42,18 +42,26 @@ services:
       - ./app/config.php:/var/www/html/config.php
     ports:
       - 9000:9000
-
   nginx:
-    build: ./nginx/dev
+    build: ./nginx/prod
     ports:
       - 80:80
+      - 443:443
     volumes:
-      - ./nginx/dev/moodle.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/prod/moodle.conf:/etc/nginx/nginx.conf:ro
       - content:/var/www/html:ro
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
     restart: always
     depends_on:
       - db
       - app
+
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
 
 volumes:
   db_data:

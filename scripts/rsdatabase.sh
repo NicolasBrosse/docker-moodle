@@ -1,6 +1,7 @@
 BACKUPDIRV=../backups/volumes
 BACKUPDIRapp=../backups/volumes/app
 BACKUPDIRSQL=../backups/sql
+BACKUPMOOD=../app/moodle_data
 LOGS=./backups/logs
 
 
@@ -66,7 +67,7 @@ echo -e "\033[36mvoule-vous restaurer moodle_data?\033[0m"
 select yn in "Yes" "No" ; do
     case $yn in
         Yes ) 
-            if  [[ -d "./app/moodle_data" ]]; then 
+            if  [[ -d "$BACKUPMOOD" ]]; then 
                 echo -e "\033[31merror moodle_data existe déjà\033[0m"
                 exit 0
             else 
