@@ -41,15 +41,14 @@ for i in $CONTAINER; do
 
     OLD_BACKUPS=$(ls -1 $BACKUPDIRSQL/$i*.gz |wc -l)
     if [ $OLD_BACKUPS -gt $DAYS ]; then
-    find $BACKUPDIR -name "$i*.gz" -daystart -mtime +$DAYS -delete
+        find $BACKUPDIR -name "$i*.gz" -daystart -mtime +$DAYS -delete
     fi 
     tar -czf $BACKUPDIRV/moodle_data-$(date +"%Y%m%d%H%M").tar.gz $BACKUPMOOD
 
     OLD_BACKUPS=$(ls -1 $BACKUPDIRV/*.gz |wc -l)
     if [ $OLD_BACKUPS -gt $DAYS ]; then
-    find $BACKUPDIR -name "*.gz" -daystart -mtime +$DAYS -delete 
+        find $BACKUPDIR -name "*.gz" -daystart -mtime +$DAYS -delete 
     fi
-    
 done
 
 echo "$TIMESTAMP Backup for Databases completed"
