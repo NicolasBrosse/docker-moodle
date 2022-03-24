@@ -1,9 +1,12 @@
 ## Building
 
 ### Setting environment variables
-Copy `.env-sample` to `.env` and set the variables
+
+- Copy `.env-sample` to `.env` and set the variables.
+- Copy `.env-sample` to `.env.prod` to run in production environment.
 
 ### Adding Moodle
+
 Run the `setup.sh` script
 
 or :
@@ -13,9 +16,11 @@ or :
 
 
 ### Running the application
+
 `docker-compose up -d`
 
 ### Rebuild an image
+
 ```
 docker volume rm docker-moodle_content
 docker-compose build app --no-cache
