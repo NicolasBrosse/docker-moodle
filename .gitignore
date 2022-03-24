@@ -24,6 +24,7 @@ vendor/pkg/
 pyenv
 Vagrantfile
 .env
+.env.prod
 .DS_Store
 
 # Custom
