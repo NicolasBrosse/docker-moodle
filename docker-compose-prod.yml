@@ -42,19 +42,27 @@ services:
       - ./app/config.php:/var/www/html/config.php
     ports:
       - 9000:9000
-
   nginx:
-    build: ./nginx/dev
+    build: ./nginx/prod
     ports:
       - 80:80
+      - 443:443
     volumes:
-      - ./nginx/dev/moodle.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/prod/moodle.conf:/etc/nginx/nginx.conf:ro
       - content:/var/www/html:ro
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
     restart: always
     depends_on:
       - db
       - app
-
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
 volumes:
   db_data:
     driver: local
