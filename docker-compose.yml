@@ -22,12 +22,16 @@ services:
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - TZ=Europe/Paris
+    networks:
+      - moodle
 
   redis:
     image: redis
     restart: always
     volumes:
       - redis_data:/data
+    networks:
+      - moodle
 
   app:
     build: ./app
@@ -38,10 +42,15 @@ services:
       - redis
     volumes:
       - ./app/moodle_data:/var/moodledata
-      - content:/var/www/html
+#      - content:/var/www/html
       - ./app/config.php:/var/www/html/config.php
+      - type: bind
+        source: app/src
+        target: /var/www/html
     ports:
       - 9000:9000
+    networks:
+      - moodle
 
   nginx:
     build: ./nginx/dev
@@ -49,14 +58,23 @@ services:
       - 80:80
     volumes:
       - ./nginx/dev/moodle.conf:/etc/nginx/nginx.conf:ro
-      - content:/var/www/html:ro
+#      - content:/var/www/html:ro
+      - type: bind
+        source: app/src
+        target: /var/www/html
     restart: always
     depends_on:
       - db
       - app
+    networks:
+      - moodle
 
 volumes:
   db_data:
     driver: local
   redis_data:
-  content:
+#  content:
+
+networks:
+  moodle: 
+    name: custom_moodle
