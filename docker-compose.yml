@@ -22,16 +22,12 @@ services:
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - TZ=Europe/Paris
-    networks:
-      - moodle
 
   redis:
     image: redis
     restart: always
     volumes:
       - redis_data:/data
-    networks:
-      - moodle
 
   app:
     build: ./app
@@ -49,8 +45,6 @@ services:
         target: /var/www/html
     ports:
       - 9000:9000
-    networks:
-      - moodle
 
   nginx:
     build: ./nginx/dev
@@ -66,15 +60,9 @@ services:
     depends_on:
       - db
       - app
-    networks:
-      - moodle
 
 volumes:
   db_data:
     driver: local
   redis_data:
 #  content:
-
-networks:
-  moodle: 
-    name: custom_moodle
