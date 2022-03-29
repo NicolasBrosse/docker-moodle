@@ -36,12 +36,11 @@ RUN apt-get install -y libmemcached-dev \
 WORKDIR /var/www/html/
 RUN mkdir /var/moodledata
 
-COPY ./moodle_data /var/moodledata
+COPY --chmod=777 ./moodle_data /var/moodledata
 RUN chown -R www-data:www-data /var/moodledata
-RUN chmod -R 777 /var/moodledata
 
-COPY ./src /var/www/html
-COPY ./config.php /var/www/html/config.php
+COPY --chmod=755 ./src /var/www/html
+COPY --chmod=755 ./config.php /var/www/html/config.php
 RUN chown -R www-data:www-data /var/www/html/*
 
 RUN echo "*/15 * * * * /usr/bin/php /var/www/html/admin/cli/cron.php >/dev/null" >> /etc/crontab

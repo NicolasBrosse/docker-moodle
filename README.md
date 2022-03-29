@@ -41,12 +41,22 @@ server : `127.0.0.1:11211`
 ## Production
 
 ```
+./scripts/setup.sh
+./init-letsencrypt.sh
+
+docker-compose -f docker-compose.prod.yml build
+docker-compose -f docker-compose.prod.yml up -d
+```
+
+## Production with BuildKit
+
+```
 export DOCKER_BUILDKIT=1
 export COMPOSE_DOCKER_CLI_BUILD=1
 
 ./scripts/setup.sh
 ./init-letsencrypt.sh
 
-docker-compose -f docker-compose.prod.yml build
-docker-compose -f docker-compose.prod.yml up -d
+docker-compose -f docker-compose.buildkit.yml build
+docker-compose -f docker-compose.buildkit.yml up -d
 ```
