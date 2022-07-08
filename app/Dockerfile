@@ -38,7 +38,7 @@ RUN mkdir /var/moodledata
 
 COPY ./moodle_data /var/moodledata
 RUN chown -R www-data:www-data /var/moodledata
-RUN chmod -R 777 /var/moodledata
+RUN chmod 777 /var/moodledata
 
 COPY ./src /var/www/html
 COPY ./config.php /var/www/html/config.php
