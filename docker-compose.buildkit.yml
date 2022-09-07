@@ -41,10 +41,10 @@ services:
     volumes:
       - ./app/config.php:/var/www/html/config.php
       - type: bind
-        source: /home/ubuntu/docker-moodle/app/src
+        source: ${APP_SRC}
         target: /var/www/html
       - type: bind
-        source: /home/ubuntu/docker-moodle/app/moodle_data
+        source: ${MOODLEDATA_SRC}
         target: /var/moodledata
     ports:
       - 9000:9000
@@ -60,7 +60,7 @@ services:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
       - type: bind
-        source: /home/ubuntu/docker-moodle/app/src
+        source: ${APP_SRC}
         target: /var/www/html
     restart: always
     depends_on:
