@@ -37,4 +37,4 @@ tmp
 backups
 data-teste
 log.*
-nginx/logs
+nginx/log

@@ -51,7 +51,7 @@ services:
       - 80:80
     volumes:
       - ./nginx/dev/moodle.template.conf:/etc/nginx/conf.d/default.template
-      - ./nginx/logs:/var/log/nginx
+      - ./nginx/log:/var/log/nginx
       - type: bind
         source: ${APP_SRC}
         target: /var/www/html
