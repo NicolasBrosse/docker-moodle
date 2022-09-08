@@ -38,3 +38,4 @@ backups
 data-teste
 log.*
 nginx/log
+kompose
